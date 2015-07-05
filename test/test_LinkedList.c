@@ -1,15 +1,18 @@
 #include "unity.h"
 #include "LinkedList.h"
+#include <malloc.h>
 
-void setUp(void)
-{
+void setUp(){}
+
+void tearDown(){}
+
+void test_createLinkedList_should_return_initialized_object(void){
+	LinkedList *list;
+	list = createLinkedList();
+	TEST_ASSERT_NOT_NULL(list);
+	TEST_ASSERT_NULL(list->head);
+	TEST_ASSERT_EQUAL(0,list->length);
 }
 
-void tearDown(void)
-{
-}
 
-void test_module_generator_needs_to_be_implemented(void)
-{
-	TEST_IGNORE_MESSAGE("Implement me!");
-}
+
