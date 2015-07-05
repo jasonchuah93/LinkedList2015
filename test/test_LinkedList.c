@@ -3,9 +3,15 @@
 #include <malloc.h>
 
 void setUp(){}
-
 void tearDown(){}
 
+/**
+	Initialize linkedlist
+	
+     HEAD   --------   TAIL
+     --->  |  NULL |  <----
+            --------
+**/
 void test_createLinkedList_should_return_initialized_object(void){
 	LinkedList *list = createLinkedList();
 	TEST_ASSERT_NOT_NULL(list);
@@ -13,6 +19,13 @@ void test_createLinkedList_should_return_initialized_object(void){
 	TEST_ASSERT_EQUAL(0,list->length);
 }
 
+/**
+	Add first element into linkedlist
+	  HEAD            HEAD         
+	-------         --------      ------- 
+   |  NULL | ---->  | ele1 |-----| NULL |
+    -------         --------      -------
+**/
 void test_listAddFirst_should_add_first_element_into_linkedList(){
 	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
@@ -27,6 +40,13 @@ void test_listAddFirst_should_add_first_element_into_linkedList(){
 	
 }
 
+/**
+	Add elements into linkedlist
+	  HEAD            HEAD                                       TAIL
+	-------         ------     -----      -----      ------     ------     -----
+   |  NULL | ---->  |ele5|-----|ele4|-----|ele3|-----|ele2|-----|ele1|-----|NULL|
+    -------         ------     -----      ------     ------     ------     ------
+**/
 void test_listAddFirst_should_add_elements_into_linkedList(){
 	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
@@ -86,6 +106,19 @@ void test_listAddFirst_should_add_elements_into_linkedList(){
 	TEST_ASSERT_NULL(list->tail->next);
 }
 
+/**
+	Remove elements into linkedlist
+    Add ele1     
+      HEAD           HEAD
+	-------         ------    -----
+   |  NULL | ---->  |ele1|----|NULL|
+    -------         ------    ------
+	Remove ele1
+	 HEAD                                  
+	------     
+    |NULL|
+    ------     
+**/
 void test_listRemoveFirst_should_remove_first_element_from_linkedList(){
 	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
@@ -108,6 +141,44 @@ void test_listRemoveFirst_should_remove_first_element_from_linkedList(){
 	TEST_ASSERT_NULL(list->head);
 	TEST_ASSERT_NULL(list->tail);
 }
+
+/**
+	Add elements into linkedlist
+	  HEAD            HEAD                                       TAIL
+	-------         ------     -----      -----      ------     ------     -----
+   |  NULL | ---->  |ele5|-----|ele4|-----|ele3|-----|ele2|-----|ele1|-----|NULL|
+    -------         ------     -----      ------     ------     ------     ------
+	
+	Remove element 5 from head
+	HEAD                             TAIL
+   ------     -----      -----      ------     -----
+   |ele4|-----|ele3|-----|ele2|-----|ele1|-----|NULL|
+   ------     -----      ------     ------     ------    
+	
+	Remove element 4 from head
+	HEAD                  TAIL
+   ------     -----      -----      -----     
+   |ele3|-----|ele2|-----|ele1|-----|NULL|
+   ------     -----      ------     ------       
+	
+	Remove element 3 from head
+	HEAD      TAIL
+   ------     -----      ----- 
+   |ele2|-----|ele1|-----|NULL|
+   ------     -----      ------
+   
+   Remove element 2 from head
+	HEAD      
+   ------     ----- 
+   |ele1|-----|NULL|
+   ------     ------ 
+   
+   Remove element 1 from head
+	HEAD      
+   ------     
+   |NULL|
+   ------     
+**/
 
 void test_listRemoveFirst_should_remove_elements_from_linkedList(){
 	LinkedList *list = createLinkedList();
@@ -225,6 +296,13 @@ void test_listRemoveFirst_should_remove_elements_from_linkedList(){
 	TEST_ASSERT_NULL(list->tail);
 }
 
+/**
+	Add first element into linkedlist
+	  HEAD            HEAD         
+	-------         --------      ------- 
+   |  NULL | ---->  | ele1 |-----| NULL |
+    -------         --------      -------
+**/
 void test_listAddLast_should_add_first_element_into_linkedList(){
 	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
@@ -239,6 +317,13 @@ void test_listAddLast_should_add_first_element_into_linkedList(){
 	TEST_ASSERT_NULL(list->tail->next);
 }
 
+/**
+	Add elements into linkedlist
+	  HEAD            HEAD                                       TAIL
+	-------         ------     -----      -----      ------     ------     -----
+   |  NULL | ---->  |ele1|-----|ele2|-----|ele3|-----|ele4|-----|ele5|-----|NULL|
+    -------         ------     -----      ------     ------     ------     ------
+**/
 void test_listAddLast_should_add_elements_into_linkedList(){
 	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
@@ -321,6 +406,43 @@ void test_listRemoveLast_should_remove_first_element_from_linkedList(){
 	TEST_ASSERT_NULL(list->tail);
 }
 
+/**
+	Add elements into linkedlist
+	  HEAD            HEAD                                       TAIL
+	-------         ------     -----      -----      ------     ------     -----
+   |  NULL | ---->  |ele1|-----|ele2|-----|ele3|-----|ele4|-----|ele5|-----|NULL|
+    -------         ------     -----      ------     ------     ------     ------
+	
+	Remove element 5 from tail
+	HEAD                             TAIL
+   ------     -----      -----      ------     -----
+   |ele1|-----|ele2|-----|ele3|-----|ele4|-----|NULL|
+   ------     -----      ------     ------     ------    
+	
+	Remove element 4 from tail
+	HEAD                  TAIL
+   ------     -----      -----      -----     
+   |ele1|-----|ele2|-----|ele3|-----|NULL|
+   ------     -----      ------     ------       
+	
+	Remove element 3 from tail
+	HEAD      TAIL
+   ------     -----      ----- 
+   |ele1|-----|ele2|-----|NULL|
+   ------     -----      ------
+   
+   Remove element 2 from tail
+	HEAD      
+   ------     ----- 
+   |ele1|-----|NULL|
+   ------     ------ 
+   
+   Remove element 1 from tail
+	HEAD      
+   ------     
+   |NULL|
+   ------     
+**/
 void test_listRemoveLast_should_remove_elements_from_linkedList(){
 	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
