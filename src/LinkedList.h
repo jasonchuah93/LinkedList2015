@@ -16,5 +16,6 @@ typedef struct
 
 LinkedList *createLinkedList();
 Element *listAddFirst(Element *newElement, LinkedList *list);
+Element *listRemoveFirst(LinkedList *list);
 
 #endif // LinkedList_H

@@ -7,17 +7,14 @@ void setUp(){}
 void tearDown(){}
 
 void test_createLinkedList_should_return_initialized_object(void){
-	LinkedList *list;
-	list = createLinkedList();
+	LinkedList *list = createLinkedList();
 	TEST_ASSERT_NOT_NULL(list);
 	TEST_ASSERT_NULL(list->head);
 	TEST_ASSERT_EQUAL(0,list->length);
 }
 
 void test_listAddFirst_should_add_first_element_into_linkedList(){
-	LinkedList *list;
-	list = createLinkedList();
-	
+	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
 	
 	listAddFirst(&ele1,list);
@@ -31,9 +28,7 @@ void test_listAddFirst_should_add_first_element_into_linkedList(){
 }
 
 void test_listAddFirst_should_add_elements_into_linkedList(){
-	LinkedList *list;
-	list = createLinkedList();
-	
+	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
 	Element ele2 = {.next = (Element *)NULL, .data = (Element *)5};
 	Element ele3 = {.next = (Element *)NULL, .data = (Element *)10};
@@ -86,4 +81,25 @@ void test_listAddFirst_should_add_elements_into_linkedList(){
 	TEST_ASSERT_NULL(list->tail->next);
 }
 
-
+void test_listRemoveFirst_should_remove_first_element_from_linkedList(){
+	LinkedList *list = createLinkedList();
+	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
+	
+	listAddFirst(&ele1,list);
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(1,list->tail->data);
+	TEST_ASSERT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(1,list->length);
+	TEST_ASSERT_NULL(list->head->next);
+	TEST_ASSERT_NULL(list->tail->next);
+	
+	listRemoveFirst(list);
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(NULL,list->head);
+	TEST_ASSERT_EQUAL(NULL,list->tail);
+	TEST_ASSERT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(0,list->length);
+	TEST_ASSERT_NULL(list->head);
+	TEST_ASSERT_NULL(list->tail);
+}

@@ -20,3 +20,18 @@ Element *listAddFirst(Element *newElement, LinkedList *list){
 	}
 	list->length++;
 }
+
+Element *listRemoveFirst(LinkedList *list){
+	Element *tempElement;
+	if(list->head == NULL && list->tail == NULL)
+		return NULL;
+	if(list->head==list->tail){
+		tempElement =list->head;
+		list->head=list->tail = NULL;	
+	}else{
+		tempElement =list->head ;
+		list->head=list->head->next;
+	}
+	list->length--;
+	return tempElement;	
+}
