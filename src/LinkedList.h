@@ -15,5 +15,6 @@ typedef struct
 }LinkedList;
 
 LinkedList *createLinkedList();
+Element *listAddFirst(Element *newElement, LinkedList *list);
 
 #endif // LinkedList_H
