@@ -46,3 +46,18 @@ Element *listAddLast(Element *newElement, LinkedList *list){
 	}
 	list->length++;
 }
+
+Element *listRemoveLast(LinkedList *list){
+	Element *tempElement;
+	if(list->head == NULL && list->tail == NULL)
+		return NULL;
+	if(list->head==list->tail){
+		tempElement =list->head;
+		list->head=list->tail = NULL;	
+	}else{
+		tempElement =list->tail ;
+		list->tail=list->tail->next;
+	}
+	list->length--;
+	return tempElement;	
+}

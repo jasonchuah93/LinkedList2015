@@ -283,3 +283,49 @@ void test_listAddLast_should_add_elements_into_linkedList(){
 	TEST_ASSERT_NOT_NULL(list->tail->next);
 }
 
+void test_listRemoveLast_should_remove_first_element_from_linkedList(){
+	LinkedList *list = createLinkedList();
+	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
+	
+	listAddLast(&ele1,list);
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(1,list->tail->data);
+	TEST_ASSERT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(1,list->length);
+	TEST_ASSERT_NULL(list->head->next);
+	TEST_ASSERT_NULL(list->tail->next);
+	
+	listRemoveLast(list);
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(NULL,list->head);
+	TEST_ASSERT_EQUAL(NULL,list->tail);
+	TEST_ASSERT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(0,list->length);
+	TEST_ASSERT_NULL(list->head);
+	TEST_ASSERT_NULL(list->tail);
+}
+
+void test_listRemoveLast_should_remove_elements_from_linkedList(){
+	LinkedList *list = createLinkedList();
+	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
+	
+	listAddLast(&ele1,list);
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(1,list->tail->data);
+	TEST_ASSERT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(1,list->length);
+	TEST_ASSERT_NULL(list->head->next);
+	TEST_ASSERT_NULL(list->tail->next);
+	
+	listRemoveLast(list);
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(NULL,list->head);
+	TEST_ASSERT_EQUAL(NULL,list->tail);
+	TEST_ASSERT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(0,list->length);
+	TEST_ASSERT_NULL(list->head);
+	TEST_ASSERT_NULL(list->tail);
+}
+
