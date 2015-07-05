@@ -74,8 +74,13 @@ void test_listAddFirst_should_add_elements_into_linkedList(){
 	listAddFirst(&ele5,list);
 	TEST_ASSERT_EQUAL(20,ele5.data);
 	TEST_ASSERT_EQUAL(20,list->head->data);
+	TEST_ASSERT_EQUAL(15,list->head->next->data);
+	TEST_ASSERT_EQUAL(10,list->head->next->next->data);
+	TEST_ASSERT_EQUAL(5,list->head->next->next->next->data);
+	TEST_ASSERT_EQUAL(1,list->head->next->next->next->next->data);
 	TEST_ASSERT_EQUAL(1,list->tail->data);
-	TEST_ASSERT_NOT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_NOT_EQUAL(list->head->data,list->tail->data);
+	TEST_ASSERT_EQUAL(list->head->next->next->next->next->data,list->tail->data);
 	TEST_ASSERT_EQUAL(5,list->length);
 	TEST_ASSERT_NOT_NULL(list->head->next);
 	TEST_ASSERT_NULL(list->tail->next);
@@ -151,13 +156,18 @@ void test_listRemoveFirst_should_remove_elements_from_linkedList(){
 	listAddFirst(&ele5,list);
 	TEST_ASSERT_EQUAL(20,ele5.data);
 	TEST_ASSERT_EQUAL(20,list->head->data);
+	TEST_ASSERT_EQUAL(15,list->head->next->data);
+	TEST_ASSERT_EQUAL(10,list->head->next->next->data);
+	TEST_ASSERT_EQUAL(5,list->head->next->next->next->data);
+	TEST_ASSERT_EQUAL(1,list->head->next->next->next->next->data);
 	TEST_ASSERT_EQUAL(1,list->tail->data);
-	TEST_ASSERT_NOT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_NOT_EQUAL(list->head->data,list->tail->data);
+	TEST_ASSERT_EQUAL(list->head->next->next->next->next->data,list->tail->data);
 	TEST_ASSERT_EQUAL(5,list->length);
 	TEST_ASSERT_NOT_NULL(list->head->next);
 	TEST_ASSERT_NULL(list->tail->next);
 	
-	listRemoveFirst(list); //Removed 20
+	listRemoveFirst(list); //Removed 20 from the head
 	TEST_ASSERT_EQUAL(1,ele1.data);
 	TEST_ASSERT_EQUAL(5,ele2.data);
 	TEST_ASSERT_EQUAL(10,ele3.data);
@@ -169,7 +179,7 @@ void test_listRemoveFirst_should_remove_elements_from_linkedList(){
 	TEST_ASSERT_NOT_NULL(list->head);
 	TEST_ASSERT_NOT_NULL(list->tail);
 	
-	listRemoveFirst(list); //Removed 15
+	listRemoveFirst(list); //Removed 15 from the head
 	TEST_ASSERT_EQUAL(1,ele1.data);
 	TEST_ASSERT_EQUAL(5,ele2.data);
 	TEST_ASSERT_EQUAL(10,ele3.data);
@@ -181,7 +191,7 @@ void test_listRemoveFirst_should_remove_elements_from_linkedList(){
 	TEST_ASSERT_NOT_NULL(list->head);
 	TEST_ASSERT_NOT_NULL(list->tail);
 	
-	listRemoveFirst(list); //Removed 10
+	listRemoveFirst(list); //Removed 10 from the head
 	TEST_ASSERT_EQUAL(1,ele1.data);
 	TEST_ASSERT_EQUAL(5,ele2.data);
 	TEST_ASSERT_EQUAL(10,ele3.data);
@@ -193,7 +203,7 @@ void test_listRemoveFirst_should_remove_elements_from_linkedList(){
 	TEST_ASSERT_NOT_NULL(list->head);
 	TEST_ASSERT_NOT_NULL(list->tail);
 	
-	listRemoveFirst(list); //Removed 5
+	listRemoveFirst(list); //Removed 5 from the head
 	TEST_ASSERT_EQUAL(1,ele1.data);
 	TEST_ASSERT_EQUAL(5,ele2.data);
 	TEST_ASSERT_EQUAL(10,ele3.data);
@@ -205,7 +215,7 @@ void test_listRemoveFirst_should_remove_elements_from_linkedList(){
 	TEST_ASSERT_NOT_NULL(list->head);
 	TEST_ASSERT_NOT_NULL(list->tail);
 	
-	listRemoveFirst(list); //Removed 1
+	listRemoveFirst(list); //Removed 1 from the head
 	TEST_ASSERT_EQUAL(1,ele1.data);
 	TEST_ASSERT_EQUAL(NULL,list->head);
 	TEST_ASSERT_EQUAL(NULL,list->tail);
@@ -277,7 +287,12 @@ void test_listAddLast_should_add_elements_into_linkedList(){
 	TEST_ASSERT_EQUAL(20,ele5.data);
 	TEST_ASSERT_EQUAL(1,list->head->data);
 	TEST_ASSERT_EQUAL(20,list->tail->data);
-	TEST_ASSERT_NOT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(15,list->tail->next->data);
+	TEST_ASSERT_EQUAL(10,list->tail->next->next->data);
+	TEST_ASSERT_EQUAL(5,list->tail->next->next->next->data);
+	TEST_ASSERT_EQUAL(1,list->tail->next->next->next->next->data);
+	TEST_ASSERT_NOT_EQUAL(list->head->data,list->tail->data);
+	TEST_ASSERT_EQUAL(list->head->data,list->tail->next->next->next->next->data);
 	TEST_ASSERT_EQUAL(5,list->length);
 	TEST_ASSERT_NULL(list->head->next);
 	TEST_ASSERT_NOT_NULL(list->tail->next);
@@ -309,6 +324,10 @@ void test_listRemoveLast_should_remove_first_element_from_linkedList(){
 void test_listRemoveLast_should_remove_elements_from_linkedList(){
 	LinkedList *list = createLinkedList();
 	Element ele1 = {.next = (Element *)NULL, .data = (Element *)1};
+	Element ele2 = {.next = (Element *)NULL, .data = (Element *)5};
+	Element ele3 = {.next = (Element *)NULL, .data = (Element *)10};
+	Element ele4 = {.next = (Element *)NULL, .data = (Element *)15};
+	Element ele5 = {.next = (Element *)NULL, .data = (Element *)20};
 	
 	listAddLast(&ele1,list);
 	TEST_ASSERT_EQUAL(1,ele1.data);
@@ -319,13 +338,118 @@ void test_listRemoveLast_should_remove_elements_from_linkedList(){
 	TEST_ASSERT_NULL(list->head->next);
 	TEST_ASSERT_NULL(list->tail->next);
 	
-	listRemoveLast(list);
+	listAddLast(&ele2,list);
+	TEST_ASSERT_EQUAL(5,ele2.data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(5,list->tail->data);
+	TEST_ASSERT_NOT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(2,list->length);
+	TEST_ASSERT_NULL(list->head->next);
+	TEST_ASSERT_NOT_NULL(list->tail->next);
+	
+	listAddLast(&ele3,list);
+	TEST_ASSERT_EQUAL(10,ele3.data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(10,list->tail->data);
+	TEST_ASSERT_NOT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(3,list->length);
+	TEST_ASSERT_NULL(list->head->next);
+	TEST_ASSERT_NOT_NULL(list->tail->next);
+	
+	listAddLast(&ele4,list);
+	TEST_ASSERT_EQUAL(15,ele4.data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(15,list->tail->data);
+	TEST_ASSERT_NOT_EQUAL(list->head,list->tail);
+	TEST_ASSERT_EQUAL(4,list->length);
+	TEST_ASSERT_NULL(list->head->next);
+	TEST_ASSERT_NOT_NULL(list->tail->next);
+	
+	listAddLast(&ele5,list);
+	TEST_ASSERT_EQUAL(20,ele5.data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(20,list->tail->data);
+	TEST_ASSERT_EQUAL(15,list->tail->next->data);
+	TEST_ASSERT_EQUAL(10,list->tail->next->next->data);
+	TEST_ASSERT_EQUAL(5,list->tail->next->next->next->data);
+	TEST_ASSERT_EQUAL(1,list->tail->next->next->next->next->data);
+	TEST_ASSERT_NOT_EQUAL(list->head->data,list->tail->data);
+	TEST_ASSERT_EQUAL(list->head->data,list->tail->next->next->next->next->data);
+	TEST_ASSERT_EQUAL(5,list->length);
+	TEST_ASSERT_NULL(list->head->next);
+	TEST_ASSERT_NOT_NULL(list->tail->next);
+	
+	listRemoveLast(list); //Removed 20 from the tail 
 	TEST_ASSERT_EQUAL(1,ele1.data);
-	TEST_ASSERT_EQUAL(NULL,list->head);
+	TEST_ASSERT_EQUAL(5,ele2.data);
+	TEST_ASSERT_EQUAL(10,ele3.data);
+	TEST_ASSERT_EQUAL(15,ele4.data);
+	TEST_ASSERT_EQUAL(20,ele5.data);
+	TEST_ASSERT_EQUAL(15,list->tail->data);
+	TEST_ASSERT_EQUAL(10,list->tail->next->data);
+	TEST_ASSERT_EQUAL(5,list->tail->next->next->data);
+	TEST_ASSERT_EQUAL(1,list->tail->next->next->next->data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(list->head->data,list->tail->next->next->next->data);
+	TEST_ASSERT_EQUAL(4,list->length);
+	TEST_ASSERT_NOT_NULL(list->head);
+	TEST_ASSERT_NOT_NULL(list->tail);
+	
+	listRemoveLast(list); //Removed 15 from the tail 
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(5,ele2.data);
+	TEST_ASSERT_EQUAL(10,ele3.data);
+	TEST_ASSERT_EQUAL(15,ele4.data);
+	TEST_ASSERT_EQUAL(20,ele5.data);
+	TEST_ASSERT_EQUAL(10,list->tail->data);
+	TEST_ASSERT_EQUAL(5,list->tail->next->data);
+	TEST_ASSERT_EQUAL(1,list->tail->next->next->data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(list->head->data,list->tail->next->next->data);
+	TEST_ASSERT_EQUAL(3,list->length);
+	TEST_ASSERT_NOT_NULL(list->head);
+	TEST_ASSERT_NOT_NULL(list->tail);
+	
+	listRemoveLast(list); //Removed 10 from the tail 
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(5,ele2.data);
+	TEST_ASSERT_EQUAL(10,ele3.data);
+	TEST_ASSERT_EQUAL(15,ele4.data);
+	TEST_ASSERT_EQUAL(20,ele5.data);
+	TEST_ASSERT_EQUAL(5,list->tail->data);
+	TEST_ASSERT_EQUAL(1,list->tail->next->data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(list->head->data,list->tail->next->data);
+	TEST_ASSERT_EQUAL(2,list->length);
+	TEST_ASSERT_NOT_NULL(list->head);
+	TEST_ASSERT_NOT_NULL(list->tail);
+	
+	listRemoveLast(list); //Removed 5 from the tail 
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(5,ele2.data);
+	TEST_ASSERT_EQUAL(10,ele3.data);
+	TEST_ASSERT_EQUAL(15,ele4.data);
+	TEST_ASSERT_EQUAL(20,ele5.data);
+	TEST_ASSERT_EQUAL(1,list->tail->data);
+	TEST_ASSERT_EQUAL(1,list->head->data);
+	TEST_ASSERT_EQUAL(list->head->data,list->tail->data);
+	TEST_ASSERT_EQUAL(1,list->length);
+	TEST_ASSERT_NOT_NULL(list->head);
+	TEST_ASSERT_NOT_NULL(list->tail);
+	
+	listRemoveLast(list); //Removed 1 from the tail 
+	TEST_ASSERT_EQUAL(1,ele1.data);
+	TEST_ASSERT_EQUAL(5,ele2.data);
+	TEST_ASSERT_EQUAL(10,ele3.data);
+	TEST_ASSERT_EQUAL(15,ele4.data);
+	TEST_ASSERT_EQUAL(20,ele5.data);
 	TEST_ASSERT_EQUAL(NULL,list->tail);
+	TEST_ASSERT_EQUAL(NULL,list->head);
 	TEST_ASSERT_EQUAL(list->head,list->tail);
 	TEST_ASSERT_EQUAL(0,list->length);
 	TEST_ASSERT_NULL(list->head);
 	TEST_ASSERT_NULL(list->tail);
 }
+
+
 
