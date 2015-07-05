@@ -35,3 +35,14 @@ Element *listRemoveFirst(LinkedList *list){
 	list->length--;
 	return tempElement;	
 }
+
+Element *listAddLast(Element *newElement, LinkedList *list){
+	if(list->head == NULL && list->tail == NULL){
+		list->head = list->tail = newElement;
+		newElement -> next = NULL;
+	}else{
+		newElement->next=list->tail;
+		list->tail=newElement;
+	}
+	list->length++;
+}
